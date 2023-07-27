@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프룻프룻 쇼핑몰</title>
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="프룻프룻 Shopping Mall" />
+    <meta property="og:title" content="프룻프룻 Shopping Mall" />
+    <meta property="og:description" content="프룻프룻 Shopping Mall 입니다." />
+    <meta property="og:image" content="user/img/openGraph.png" />
+    <meta property="og:url" content="https://prpr-shopping-mall.co.kr" />
+
+    <!--파비콘-->
+    <link rel="icon" href="user/img/favicon.ico" />
+
+    <th:block th:insert="~{includes/library}"></th:block>
+    <th:block th:insert="~{includes/scripts}"></th:block>
+    <th:block th:insert="~{includes/style}"></th:block>
+
+    <script defer src="js/main.js"></script>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="inner">
+
+            <a href="../" class="logo">
+                <img src="user/img/푸릇푸릇 로고.png" alt="logo" />
+            </a>
+
+            <div class="sub-menu">
+                <ul class="menu">
+                    <li>
+                        <a href="login">Sign In</a>
+                    </li>
+                    <li>
+                        <a href="join">Join</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">language</a>
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="main-menu">
+                <li class="item">
+                    <div class="item__name">HOME</div>
+                </li>
+
+                <li class="item">
+                    <div class="item__name">
+                        <a href="search">상품소개</a>
+                    </div>
+                </li>
+
+                <li class="item">
+                    <div class="item__name">
+                        <a href="search">구매내역</a>
+                    </div>
+                </li>
+
+                <li class="item">
+                    <div class="item__name">마이페이지</div>
+                </li>
+
+                <li class="item">
+                    <div class="item__name red">
+                        장바구니
+                        <span class="material-icons">
+                            shopping_cart
+                        </span>
+
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </header>
+
+
+    <section id="join">
+<!--향후 리팩토링이 필요한 코드. 버튼 클릭시 axios 비동기 처리로 유효성 검사해야 렌더링 없이 확인 가능-->
+        <form action="user/signup" method="post">
+            <div class="inner">
+                <!-- 회원가입 -->
+                <div class="join__1st">
+                    <div class="join__title">
+                        <h4>회원가입</h4>
+                    </div>
+
+                    <div class="inputboxs">
+                        <label for="USER_EMAIL">
+                            <p>이메일주소(ID)</p>
+                            <input type="textbox" name="USER_EMAIL" value="이메일 주소 입력" id="USER_EMAIL">
+                        </label>
+                        <label for="USER_NAME">
+                            <p>닉네임</p>
+                            <input type="textbox" name="USER_NAME" value="닉네임 입력 (2자 이상)" id="USER_NAME">
+                        </label>
+                        <label for="USER_PWD">
+                            <p>비밀번호</p>
+                            <input type="textbox" name="USER_PWD" value="영문, 숫자, 특수문자 (8자-20자 이내)" id="USER_PWD">
+                        </label>
+                        <label for="USER_PWD2">
+                            <p>비밀번호 확인</p>
+                            <input type="textbox" name="USER_PWD2" value="비밀번호를 한번 더 입력해주세요." id="USER_PWD2" class="wrong__pw__input">
+                            <p class="wrong__pw">비밀번호가 일치하지 않습니다.</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 약관동의 -->
+            <div class="join__2nd">
+                <div class="terms">
+                    <div>
+                        <h5>약관동의</h5>
+                    </div>
+
+                    <!-- 약관동의 체크박스들 -->
+                    <div class="checkboxs">
+
+                        <!-- 모든약관에 동의 체크하면 모두 체크되게.. -->
+                        <label for="chk1" class="all__agreed">
+                            <input type="checkbox" name="CHK1" value="진행중" id="chk1">
+                            <p class="agree">모든 약관에 동의합니다.</p>
+                        </label>
+
+                        <label for="chk2">
+                            <input type="checkbox" name="CHK2" value="진행중" id="chk2">
+                            <p>[필수] 만 14세 이상입니다.</p>
+                        </label>
+
+                        <label for="chk3">
+                            <input type="checkbox" name="CHK3" value="진행중" id="chk3">
+                            <p>[필수] 이용약관 <span>보기</span></p>
+                        </label>
+
+                        <label for="chk4">
+                            <input type="checkbox" name="CHK4" value="진행중" id="chk4">
+                            <p>[필수] 개인정보수집·이용동의서 <span>보기</span></p>
+                        </label>
+
+                        <label for="chk5">
+                            <input type="checkbox" name="MARKET_CHK" value="진행중" id="chk5">
+                            <p>[선택] 마케팅 정보 수신동의 <span>보기</span></p>
+                        </label>
+
+                        <label for="chk6">
+                            <input type="checkbox" name="PRIVAC_CHK" value="진행중" id="chk6">
+                            <p>[선택] 개인정보수집·이용동의서 <span>보기</span></p>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+
+
+        <!-- 회원가입 버튼 -->
+            <div class="button">
+                <div class="inner">
+                    <button type="submit">회원가입</button>
+                </div>
+
+            </div>
+        </form>
+    </section>
+
+
+    <footer id="footer">
+        <div class="inner">
+            <h1>
+                <img src="user/img/푸릇푸릇 로고.png" alt="로고">
+            </h1>
+            <ul>
+                <li>
+                    <a href="#">Policy</a>
+                </li>
+                <li>
+                    <a href="#">Terms</a>
+                </li>
+                <li>
+                    <a href="#">Customer</a>
+                </li>
+                <li>
+                    <a href="#">Contact us</a>
+                </li>
+            </ul>
+    
+            <address>
+                <span>(주)콜론비</span>
+                <br>
+                사업자등록번호 123-12-12345
+                <br />
+                통신판매업 신고번호 제2023-서울-1234호
+                <br>
+                대표 한동윤 | 개인정보 책임자 한동윤
+                <br>
+                서울 특별시 강남구 강남대로 123
+                <br>
+                <br>
+                고객센터: 02-1544-1234
+                <br>
+                제휴문의: echel@colon-b.com
+            </address>
+    
+            <p>
+                Copyright &copy; 2023 Colon:B. ALL Right reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecommerce.projectec.user.UserMapper">
+    <select id="userSelectAll" resultType="HashMap">
+        SELECT * FROM USER
+    </select>
+
+    <select id="userSelectByEmail" resultType="HashMap">
+        SELECT * FROM USER WHERE USER_EMAIL = #{USER_EMAIL}
+    </select>
+
+    <insert id="userInsert" parameterType="HashMap">
+        INSERT INTO USER(USER_EMAIL, USER_NAME, USER_PWD)
+            VALUES (#{USER_EMAIL}, #{USER_NAME}, #{USER_PWD})
+    </insert>
+</mapper>
+

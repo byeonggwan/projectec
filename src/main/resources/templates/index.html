@@ -29,17 +29,18 @@
     <header id="header">
         <div class="inner">
 
-            <a href="user/index" class="logo">
+            <a href="/" class="logo">
                 <img src="user/img/푸릇푸릇 로고.png" alt="logo" />
             </a>
 
             <div class="sub-menu">
                 <ul class="menu">
                     <li>
-                        <a href="user/login">Sign In</a>
+                        <a href="login" th:if="${session.USER_EMAIL == null}">Sign In</a>
+                        <a href="#" id="logout" th:unless="${session.USER_EMAIL == null}">Log Out</a>
                     </li>
                     <li>
-                        <a href="user/join">Join</a>
+                        <a href="join">Join</a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">language</a>
@@ -54,13 +55,13 @@
 
                 <li class="item">
                     <div class="item__name">
-                        <a href="user/search">상품소개</a>
+                        <a href="search">상품소개</a>
                     </div>
                 </li>
 
                 <li class="item">
                     <div class="item__name">
-                        <a href="user/search">구매내역</a>
+                        <a href="search">구매내역</a>
                     </div>
                 </li>
 
@@ -203,7 +204,7 @@
                 <!-- 오렌지 -->
                 <li>
                     <!-- 클릭 시 상세페이지 이동 -->
-                    <a href="user/detail">
+                    <a href="detail">
 
                         <!-- 상품 사진 -->
                         <img src="user/img/오렌지사진.jpg" alt="오렌지사진">
@@ -237,7 +238,7 @@
                 <!-- 장바구니 클릭 시 수량 증감버튼 -->
                 <!-- 망고스틴 -->
                 <li class="cart__click">
-                    <a href="user/detail">
+                    <a href="detail">
                         <img src="user/img/상세페이지_망고스틴.png" alt="망고스틴사진">
                     </a>
 
