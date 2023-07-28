@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecommerce.projectec.term.TermMapper">
+    <select id="insertAll" parameterType="java.util.List">
+        INSERT INTO TERM(USER_ID_NO, TERM_NAME, TERM_FLAG) VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.USER_ID_NO}, #{map.TERM_NAME}, #{map.TERM_FLAG})
+        </foreach>
+    </select>
+    <select id="selectAllByUserId" resultType="HashMap" parameterType="Int">
+        SELECT * FROM TERM WHERE USER_ID_NO = #{USER_ID_NO}
+    </select>
+
+</mapper>
