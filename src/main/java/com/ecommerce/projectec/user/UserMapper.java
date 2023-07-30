@@ -12,5 +12,5 @@ public interface UserMapper {
     void userInsert(HashMap<String, Object> user);
     List<HashMap<String, Object>> userSelectAll();
     HashMap<String, Object> userSelectByEmail(@Param("USER_EMAIL") String userEmail);
-
+    HashMap<String, Object> userSelectByName(@Param("USER_NAME") String userName);
 }

@@ -43,6 +43,13 @@
   font: normal 11px/1 "Nanum Gothic";
   margin-top: 7px;
 }
+
+#join .inner .join__1st .inputboxs label .right__pw {
+  color: green;
+  font: normal 11px/1 "Nanum Gothic";
+  margin-top: 7px;
+}
+
 #join .join__2nd {
   background-color: #f2f2f2;
   margin-bottom: 100px;

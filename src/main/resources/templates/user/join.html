@@ -84,8 +84,7 @@
 
 
     <section id="join">
-<!--향후 리팩토링이 필요한 코드. 버튼 클릭시 axios 비동기 처리로 유효성 검사해야 렌더링 없이 확인 가능-->
-        <form action="user/signup" method="post">
+        <form method="post">
             <div class="inner">
                 <!-- 회원가입 -->
                 <div class="join__1st">
@@ -96,20 +95,27 @@
                     <div class="inputboxs">
                         <label for="USER_EMAIL">
                             <p>이메일주소(ID)</p>
-                            <input type="textbox" name="USER_EMAIL" value="이메일 주소 입력" id="USER_EMAIL">
+                            <input type="textbox" name="USER_EMAIL" placeholder="이메일 주소 입력" id="USER_EMAIL">
+                            <p class="wrong__pw" id="invalidEmail" style="display: none;"> 이메일이 이미 존재하거나 불가능한 형식입니다. </p>
+                            <p class="right__pw" id="validEmail" style="display: none;"> 이 이메일은 사용 가능합니다. </p>
                         </label>
                         <label for="USER_NAME">
                             <p>닉네임</p>
-                            <input type="textbox" name="USER_NAME" value="닉네임 입력 (2자 이상)" id="USER_NAME">
+                            <input type="textbox" name="USER_NAME" placeholder="닉네임 입력 (2자 이상)" id="USER_NAME">
+                            <p class="wrong__pw" id="invalidName" style="display: none;"> 닉네임이 너무 짧거나 이미 존재합니다. </p>
+                            <p class="right__pw" id="validName" style="display: none;"> 이 닉네임은 사용 가능합니다. </p>
                         </label>
                         <label for="USER_PWD">
                             <p>비밀번호</p>
-                            <input type="textbox" name="USER_PWD" value="영문, 숫자, 특수문자 (8자-20자 이내)" id="USER_PWD">
+                            <input type="password" name="USER_PWD" placeholder="영문, 숫자, 특수문자 (8자-20자 이내)" id="USER_PWD">
+                            <p class="wrong__pw" id="invalidPwd" style="display: none;"> 비밀번호가 너무 짧거나 허용되지 않는 문자를 사용했습니다. </p>
+                            <p class="right__pw" id="validPwd" style="display: none;"> 적절한 비밀번호입니다. </p>
                         </label>
                         <label for="USER_PWD2">
                             <p>비밀번호 확인</p>
-                            <input type="textbox" name="USER_PWD2" value="비밀번호를 한번 더 입력해주세요." id="USER_PWD2" class="wrong__pw__input">
-                            <p class="wrong__pw">비밀번호가 일치하지 않습니다.</p>
+                            <input type="password" name="USER_PWD2" placeholder="비밀번호를 한번 더 입력해주세요." id="USER_PWD2" class="wrong__pw__input">
+                            <p class="wrong__pw" id="invalidPwd2" style="display: none;"> 비밀번호가 다르거나 적절하지 않습니다. </p>
+                            <p class="right__pw" id="validPwd2" style="display: none;"> 비밀번호가 같습니다. </p>
                         </label>
                     </div>
                 </div>
@@ -127,33 +133,33 @@
                     <div class="checkboxs">
 
                         <!-- 모든약관에 동의 체크하면 모두 체크되게.. -->
-                        <label for="chk1" class="all__agreed">
-                            <input type="checkbox" name="CHK1" value="CHK1" id="chk1">
+                        <label for="allCheck" class="all__agreed">
+                            <input type="checkbox" name="CHK1" value="CHK1" id="allCheck">
                             <p class="agree">모든 약관에 동의합니다.</p>
                         </label>
 
                         <label for="chk2">
-                            <input type="checkbox" name="CHK2" value="CHK2" id="chk2">
+                            <input type="checkbox" name="CHK2" value="CHK2" id="chk2" class="essential-chk">
                             <p>[필수] 만 14세 이상입니다.</p>
                         </label>
 
                         <label for="chk3">
-                            <input type="checkbox" name="CHK3" value="CHK3" id="chk3">
+                            <input type="checkbox" name="CHK3" value="CHK3" id="chk3" class="essential-chk">
                             <p>[필수] 이용약관 <span>보기</span></p>
                         </label>
 
                         <label for="chk4">
-                            <input type="checkbox" name="CHK4" value="CHK4" id="chk4">
+                            <input type="checkbox" name="CHK4" value="CHK4" id="chk4" class="essential-chk">
                             <p>[필수] 개인정보수집·이용동의서 <span>보기</span></p>
                         </label>
 
-                        <label for="chk5">
-                            <input type="checkbox" name="MARKET_CHK" value="MARKET_CHK" id="chk5">
+                        <label for="MARKET_CHK">
+                            <input type="checkbox" name="MARKET_CHK" value="MARKET_CHK" id="MARKET_CHK">
                             <p>[선택] 마케팅 정보 수신동의 <span>보기</span></p>
                         </label>
 
-                        <label for="chk6">
-                            <input type="checkbox" name="PRIVAC_CHK" value="PRIVAC_CHK" id="chk6">
+                        <label for="PRIVAC_CHK">
+                            <input type="checkbox" name="PRIVAC_CHK" value="PRIVAC_CHK" id="PRIVAC_CHK">
                             <p>[선택] 개인정보수집·이용동의서 <span>보기</span></p>
                         </label>
 
@@ -165,7 +171,7 @@
         <!-- 회원가입 버튼 -->
             <div class="button">
                 <div class="inner">
-                    <button type="submit">회원가입</button>
+                    <button type="button" id="signup-button">회원가입</button>
                 </div>
 
             </div>

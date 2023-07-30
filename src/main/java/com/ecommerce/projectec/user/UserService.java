@@ -38,4 +38,13 @@ public class UserService implements UserMapper{
             return null;
         return user;
     }
+
+    @Override
+    public HashMap<String, Object> userSelectByName(String userName) {
+        HashMap<String, Object> user = userMapper.userSelectByName(userName);
+
+        if (user == null)
+            return null;
+        return user;
+    }
 }

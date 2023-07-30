@@ -13,6 +13,10 @@
         SELECT * FROM USER WHERE USER_EMAIL = #{USER_EMAIL}
     </select>
 
+    <select id="userSelectByName" resultType="HashMap">
+        SELECT * FROM USER WHERE USER_NAME = #{USER_NAME}
+    </select>
+
     <insert id="userInsert" parameterType="HashMap">
         INSERT INTO USER(USER_EMAIL, USER_NAME, USER_PWD)
             VALUES (#{USER_EMAIL}, #{USER_NAME}, #{USER_PWD})
