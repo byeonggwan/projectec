@@ -19,8 +19,8 @@ $(document).on("click", "#logout", (event) => {
     ;
 });
 
-$(document).on("propertychange change keyup paste input", "#USER_EMAIL", () => {
-    const USER_EMAIL = $("#USER_EMAIL").val();
+$(document).on("propertychange change keyup paste input", "#joinUserEmail", () => {
+    const USER_EMAIL = $("#joinUserEmail").val();
 
     axios({
         method: "post",
@@ -41,8 +41,8 @@ $(document).on("propertychange change keyup paste input", "#USER_EMAIL", () => {
     });
 });
 
-$(document).on("propertychange change keyup paste input", "#USER_NAME", () => {
-    const USER_NAME = $("#USER_NAME").val();
+$(document).on("propertychange change keyup paste input", "#joinUserName", () => {
+    const USER_NAME = $("#joinUserName").val();
 
     axios({
         method: "post",
@@ -63,10 +63,10 @@ $(document).on("propertychange change keyup paste input", "#USER_NAME", () => {
     });
 });
 
-$(document).on("propertychange change keyup paste input", "#USER_PWD", () => {
+$(document).on("propertychange change keyup paste input", "#joinUserPwd", () => {
     // 숫자, 영문자, 특수문자를 각각 1개 이상 조합한 8~20 길이의 문자열
     const regExp = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-    const USER_PWD = $("#USER_PWD").val();
+    const USER_PWD = $("#joinUserPwd").val();
 
     if (regExp.test(USER_PWD)) {
         $("#validPwd").show();
@@ -77,10 +77,10 @@ $(document).on("propertychange change keyup paste input", "#USER_PWD", () => {
     }
 });
 
-$(document).on("propertychange change keyup paste input", "#USER_PWD2", () => {
+$(document).on("propertychange change keyup paste input", "#joinUserPwd2", () => {
     const regExp = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-    const USER_PWD = $("#USER_PWD").val();
-    const USER_PWD2 = $("#USER_PWD2").val();
+    const USER_PWD = $("#joinUserPwd").val();
+    const USER_PWD2 = $("#joinUserPwd2").val();
 
     if (regExp.test(USER_PWD) && USER_PWD == USER_PWD2) {
         $("#validPwd2").show();
@@ -93,10 +93,10 @@ $(document).on("propertychange change keyup paste input", "#USER_PWD2", () => {
 
 // 향후 리팩토링 필요
 $(document).on("click", "#signup-button", () => {
-    const USER_EMAIL = $("#USER_EMAIL").val();
-    const USER_NAME = $("#USER_NAME").val();
-    const USER_PWD = $("#USER_PWD").val();
-    const USER_PWD2 = $("#USER_PWD2").val();
+    const USER_EMAIL = $("#joinUserEmail").val();
+    const USER_NAME = $("#joinUserName").val();
+    const USER_PWD = $("#joinUserPwd").val();
+    const USER_PWD2 = $("#joinUserPwd2").val();
     const MARKET_CHK = $("#MARKET_CHK").prop("checked");
     const PRIVAC_CHK = $("#PRIVAC_CHK").prop("checked");
 

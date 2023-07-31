@@ -33,7 +33,8 @@
             <div class="sub-menu">
                 <ul class="menu">
                     <li>
-                        <a href="/user/signin">Sign In</a>
+                        <a href="/user/signin" th:if="${session.USER_EMAIL == null}">Sign In</a>
+                        <a href="#" id="logout" th:unless="${session.USER_EMAIL == null}">Log Out</a>
                     </li>
                     <li>
                         <a href="/user/join">Join</a>

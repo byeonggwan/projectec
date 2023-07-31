@@ -11,15 +11,15 @@
                 </div>
 
                 <div class="login__input">
-                    <label for="USER_EMAIL">
+                    <label for="signInUserEmail">
                         <p>이메일주소(ID)</p>
-                        <input type="textbox" name="USER_EMAIL" placeholder="이메일 주소 입력" id="USER_EMAIL">
+                        <input type="textbox" name="USER_EMAIL" placeholder="이메일 주소 입력" id="signInUserEmail">
                     </label>
 
                     <div class="input__pw">
-                        <label for="USER_PWD">
+                        <label for="signInUserPwd">
                             <p>비밀번호</p>
-                            <input type="password" name="USER_PWD" placeholder="영문, 숫자, 특수문자 (8자-20자 이내)" id="USER_PWD">
+                            <input type="password" name="USER_PWD" placeholder="영문, 숫자, 특수문자 (8자-20자 이내)" id="signInUserPwd">
                             <p th:if="${errorMessage}" class="wrong__pw" th:text="${errorMessage}"></p>
                         </label>
 
