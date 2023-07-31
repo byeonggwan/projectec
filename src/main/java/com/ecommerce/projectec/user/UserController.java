@@ -89,6 +89,11 @@ public class UserController {
         return "user/joinConfirm";
     }
 
+    @GetMapping("findPw")
+    public String findPw() {
+        return "user/findPw";
+    }
+
     @PostMapping("login")
     public String login(@RequestParam("USER_EMAIL") String userEmail,
                         @RequestParam("USER_PWD") String userPwd,
@@ -96,7 +101,6 @@ public class UserController {
                         Model model) {
         HashMap<String, Object> user = userService.userSelectByEmail(userEmail);
 
-        // 모델 attribute 넘어가도록 설계 바꿔야함.
         if (user == null) {
             model.addAttribute("errorMessage", "이메일이 잘못 입력되었습니다.");
             return "user/signin";
@@ -172,6 +176,43 @@ public class UserController {
 
         System.out.println(user);
         return true;
+    }
+
+    /*
+     * @author 강병관
+     * 비밀번호를 찾기위해 이메일을 받고 유효성 검사한뒤 id값 넘겨주는 코드
+     * 보안상 매우 위험하지만 일단 작동이 되는 것을 확인하기 위해 구현함.
+     * 향후 보안 대책 필요
+     */
+    @RequestMapping("find-email")
+    public String findEmailToFindPw(@RequestParam("USER_EMAIL") String userEmail,
+                                    Model model) {
+        HashMap<String, Object> user = userService.userSelectByEmail(userEmail);
+        if (user == null)
+            return "redirect:/user/findPw";
+        long userId = (long) user.get("USER_ID_NO");
+        model.addAttribute("USER_ID_NO", userId);
+        return "user/changePw";
+    }
+
+    /*
+     * @author 강병관
+     * find-email에서 넘겨받은 id를 가지고 비밀번호 업데이트하는 메소드
+     * 그냥 보안 0이다 완전히 위험하다 일단 기능구현을 위해 추가함.
+     * 서버에서 세션 만들어서 할당한뒤 쓰는 방법이 있지않을까?
+     */
+    @RequestMapping("change-pw")
+    public String changePw(@RequestParam("USER_ID") long userId,
+                           @RequestParam("newpw") String newPw,
+                           @RequestParam("newpw2") String newPw2) {
+        if (!pwdPattern.matcher(newPw).matches() || !newPw.equals(newPw2)) {
+            return "redirect:/user/findPw";
+        }
+        HashMap<String, Object> user = new HashMap<>();
+        user.put("USER_ID_NO", userId);
+        user.put("USER_PWD", newPw);
+        userService.userUpdateById(user);
+        return "redirect:/";
     }
 
     private void addTerm(List<HashMap<String, Object>> terms, long userIdNo, String termName, boolean termFlag) {

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<th:block layout:fragment="content">
+    <div class="changePw_wrap">
+        <div class="inner box-shadow">
+            <div class="txt01">
+                <p>비밀번호 변경</p>
+            </div>
+
+            <div class="txt02">
+                <p>비밀번호는
+                    <span>영문자 + 숫자 + 특수문자 포함 최소 8자리 이상 <br> 20자리 이내</span>로 설정해주세요.
+                </p>
+            </div>
+
+            <div class="txt03">
+                <form action="/user/change-pw" method="post">
+                    <label for="newpw">
+                        <p>새비밀번호</p>
+                        <input type="password" name="newpw" placeholder="비밀번호를 입력해주세요. (특수문자포함 8자리 이상)" id="newpw">
+                    </label>
+
+                    <label for="newpw2">
+                        <p>새비밀번호 확인</p>
+                        <input type="password" name="newpw2" placeholder="비밀번호를 한번 더 입력해주세요." id="newpw2">
+                    </label>
+                        <p> 기능구현을 위해 임시로 넣은 ID 값 </p>
+                        <input th:value="${USER_ID_NO}" name="USER_ID">
+
+                    <a>
+                        <button id="change-pwd-button">비밀번호 변경</button>
+                    </a>
+                </form>
+            </div>
+
+            <!-- 비밀번호가 정상적으로 변경되었습니다. 모달 창 -->
+            <div class="txt04" style="display: none;">
+                <div class="inner">
+
+                    <h4>알림</h4>
+
+                    <h5>비밀번호가 정상적으로 변경되었습니다. <br>
+                        로그인 화면으로 이동합니다.
+                        <a href="../../../../../../../Desktop/Fruit-Publish-master/login.html">확인</a>
+                    </h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

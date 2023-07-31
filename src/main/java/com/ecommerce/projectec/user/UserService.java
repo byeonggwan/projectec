@@ -47,4 +47,12 @@ public class UserService implements UserMapper{
             return null;
         return user;
     }
+
+    @Override
+    public void userUpdateById(HashMap<String, Object> user) {
+        if (user == null) {
+            return;
+        }
+        userMapper.userUpdateById(user);
+    }
 }
