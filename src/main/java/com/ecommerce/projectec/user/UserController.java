@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -76,14 +77,18 @@ public class UserController {
     @RequestMapping("login")
     public String login(@RequestParam("USER_EMAIL") String userEmail,
                         @RequestParam("USER_PWD") String userPwd,
-                        HttpSession httpSession) {
+                        HttpSession httpSession,
+                        Model model) {
         HashMap<String, Object> user = userService.userSelectByEmail(userEmail);
 
+        // 모델 attribute 넘어가도록 설계 바꿔야함.
         if (user == null) {
+            model.addAttribute("errorMessage", "이메일이 잘못 입력되었습니다.");
             return "redirect:/login";
         }
         // important: 비밀번호 인코딩 비교로 교체 필요
         if (!(userPwd.equals(user.get("USER_PWD")))) {
+            model.addAttribute("errorMessage", "비밀번호가 잘못 입력되었습니다.");
             return "redirect:/login";
         }
 

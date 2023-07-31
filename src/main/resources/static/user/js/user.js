@@ -102,7 +102,8 @@ $(document).on("click", "#signup-button", () => {
 
     // 패스워드 동일한지 검사
     if (USER_PWD != USER_PWD2) {
-
+        alert("비밀 번호를 체크해주세요.");
+        return;
     }
 
     // 필수항목 전부 체크됐는지 검사
@@ -114,7 +115,8 @@ $(document).on("click", "#signup-button", () => {
         }
     });
     if (!allChecked) {
-
+        alert("필수 약관을 체크해주세요.");
+        return;
     }
 
     axios({
@@ -128,6 +130,9 @@ $(document).on("click", "#signup-button", () => {
         console.log(res.data);
         if (res.data == true) {
             window.location.replace("joinConfirm");
+        }
+        else {
+            alert("필수 항목을 체크해주세요.");
         }
     });
 
