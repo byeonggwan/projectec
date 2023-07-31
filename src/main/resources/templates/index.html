@@ -1,89 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프룻프룻 쇼핑몰</title>
-
-    <!--Open Graph-->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="프룻프룻 Shopping Mall" />
-    <meta property="og:title" content="프룻프룻 Shopping Mall" />
-    <meta property="og:description" content="프룻프룻 Shopping Mall 입니다." />
-    <meta property="og:image" content="user/img/openGraph.png" />
-    <meta property="og:url" content="https://prpr-shopping-mall.co.kr" />
-
-    <!--파비콘-->
-    <link rel="icon" href="user/img/favicon.ico" />
-
-    <th:block th:insert="~{includes/library}"></th:block>
-    <th:block th:insert="~{includes/scripts}"></th:block>
-    <th:block th:insert="~{includes/style}"></th:block>
-
-</head>
-
-<body>
-
-    <!-- HEADER -->
-    <header id="header">
-        <div class="inner">
-
-            <a href="/" class="logo">
-                <img src="user/img/푸릇푸릇 로고.png" alt="logo" />
-            </a>
-
-            <div class="sub-menu">
-                <ul class="menu">
-                    <li>
-                        <a href="login" th:if="${session.USER_EMAIL == null}">Sign In</a>
-                        <a href="#" id="logout" th:unless="${session.USER_EMAIL == null}">Log Out</a>
-                    </li>
-                    <li>
-                        <a href="join">Join</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">language</a>
-                    </li>
-                </ul>
-            </div>
-
-            <ul class="main-menu">
-                <li class="item">
-                    <div class="item__name">HOME</div>
-                </li>
-
-                <li class="item">
-                    <div class="item__name">
-                        <a href="search">상품소개</a>
-                    </div>
-                </li>
-
-                <li class="item">
-                    <div class="item__name">
-                        <a href="search">구매내역</a>
-                    </div>
-                </li>
-
-                <li class="item">
-                    <div class="item__name">마이페이지</div>
-                </li>
-
-                <li class="item">
-                    <div class="item__name red">
-                        장바구니
-                        <span class="material-icons">
-                            shopping_cart
-                        </span>
-
-                    </div>
-                </li>
-            </ul>
-
-        </div>
-    </header>
-
-    <!-- VISUAL -->
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<th:block layout:fragment="content">
     <section id="visual">
         <div class="promotion">
             <div class="swiper">
@@ -451,51 +370,5 @@
             </a>
         </div>
     </section>
-
-
-    <footer id="footer">
-        <div class="inner">
-            <h1>
-                <img src="user/img/푸릇푸릇 로고.png" alt="로고">
-            </h1>
-            <ul>
-                <li>
-                    <a href="#">Policy</a>
-                </li>
-                <li>
-                    <a href="#">Terms</a>
-                </li>
-                <li>
-                    <a href="#">Customer</a>
-                </li>
-                <li>
-                    <a href="#">Contact us</a>
-                </li>
-            </ul>
-
-            <address>
-                <span>(주)콜론비</span>
-                <br>
-                사업자등록번호 123-12-12345
-                <br />
-                통신판매업 신고번호 제2023-서울-1234호
-                <br>
-                대표 한동윤 | 개인정보 책임자 한동윤
-                <br>
-                서울 특별시 강남구 강남대로 123
-                <br>
-                <br>
-                고객센터: 02-1544-1234
-                <br>
-                제휴문의: echel@colon-b.com
-            </address>
-
-            <p>
-                Copyright &copy; 2023 Colon:B. ALL Right reserved.
-            </p>
-        </div>
-    </footer>
-
-</body>
-
+</th:block>
 </html>

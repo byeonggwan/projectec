@@ -74,7 +74,22 @@ public class UserController {
         return "user/joinConfirm";
     }
     */
-    @RequestMapping("login")
+    @GetMapping("signin")
+    public String signin() {
+        return "user/signin";
+    }
+    @GetMapping("join")
+    public String join() {
+        return "user/join";
+    }
+
+    @GetMapping("joinConfirm")
+    public String joinConfirm(@RequestParam("USER_EMAIL") String userEmail, Model model) {
+        model.addAttribute("USER_EMAIL", userEmail);
+        return "user/joinConfirm";
+    }
+
+    @PostMapping("login")
     public String login(@RequestParam("USER_EMAIL") String userEmail,
                         @RequestParam("USER_PWD") String userPwd,
                         HttpSession httpSession,
@@ -84,12 +99,12 @@ public class UserController {
         // 모델 attribute 넘어가도록 설계 바꿔야함.
         if (user == null) {
             model.addAttribute("errorMessage", "이메일이 잘못 입력되었습니다.");
-            return "redirect:/login";
+            return "user/signin";
         }
         // important: 비밀번호 인코딩 비교로 교체 필요
         if (!(userPwd.equals(user.get("USER_PWD")))) {
             model.addAttribute("errorMessage", "비밀번호가 잘못 입력되었습니다.");
-            return "redirect:/login";
+            return "user/signin";
         }
 
         httpSession.setAttribute("USER_EMAIL" , user.get("USER_EMAIL"));

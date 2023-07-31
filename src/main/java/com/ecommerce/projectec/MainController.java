@@ -16,9 +16,4 @@ public class MainController {
     public String temp() {
         return "index";
     }
-
-    @GetMapping("{pageName}")
-    public String goSubPage(@PathVariable String pageName) {
-        return "user/" + pageName;
-    }
 }

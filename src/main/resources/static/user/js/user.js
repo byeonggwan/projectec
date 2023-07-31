@@ -129,7 +129,7 @@ $(document).on("click", "#signup-button", () => {
     }).then(res => {
         console.log(res.data);
         if (res.data == true) {
-            window.location.replace("joinConfirm");
+            window.location.replace("joinConfirm?USER_EMAIL=" + USER_EMAIL);
         }
         else {
             alert("필수 항목을 체크해주세요.");
