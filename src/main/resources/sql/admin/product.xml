@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecommerce.projectec.product.ProductMapper">
+    <insert id="insert" parameterType="HashMap">
+        INSERT INTO PRODUCT(CATEGORY_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STOCK, PRODUCT_DESC, PRODUCT_DISCOUNT)
+        SELECT CATEGORY_ID, #{PRODUCT_NAME}, #{PRODUCT_PRICE}, #{PRODUCT_STOCK}, #{PRODUCT_DESC}, #{PRODUCT_DISCOUNT}
+        FROM CATEGORY
+        WHERE CATEGORY_NAME = #{CATEGORY_NAME}
+    </insert>
+    <select id="selectById" resultType="HashMap" parameterType="Int">
+    </select>
+
+</mapper>

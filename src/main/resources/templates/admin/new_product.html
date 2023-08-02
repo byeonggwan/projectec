@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout}">
+<th:block layout:fragment="content">
+    <section id="admin_product02">
+        <div class="inner">
+            <div class="title">
+                <h2>상품등록</h2>
+            </div>
+            <div class="admin_product02__wrap">
+                <label for="adminNewProductName" class="productName">
+                    <p> <span>*</span> 상품명</p>
+                    <input type="textbox" name="productName" placeholder="상품명을 입력해주세요." id="adminNewProductName" required>
+                </label>
+
+                <label for="sort">
+                    <p> <span>*</span> 분류</p>
+                    <select name="sort" id="sort">
+                        <p>분류</p>
+                        <option value="봄과일">봄과일</option>
+                        <option value="여름과일">여름과일</option>
+                        <option value="가을과일">가을과일</option>
+                        <option value="겨울과일">겨울과일</option>
+                    </select>
+                </label>
+
+                <label for="adminNewProductPrice">
+                    <p> <span>*</span> 상품금액</p>
+                    <input type="textbox" name="price" placeholder="0" id="adminNewProductPrice" required>
+                    원
+                </label>
+
+                <label for="adminNewProductDiscount">
+                    <p> 상품할인율 </p>
+                    <input type="textbox" name="discount" placeholder="0" id="adminNewProductDiscount">
+                    %
+                </label>
+
+                <label for="adminNewProductTotalPrice" class="totalPrice">
+                    <p> 할인적용 후 금액 </p>
+                    <input type="textbox" name="totalPrice" placeholder="0" readonly id="adminNewProductTotalPrice">
+                    원
+                </label>
+
+                <label for="adminNewProductStock">
+                    <p> <span>*</span> 재고수량 </p>
+                    <input type="textbox" name="stock" placeholder="0" id="adminNewProductStock" required>
+                    원
+                </label>
+
+                <label for="adminNewProductPicture" class="productPicture">
+                    <p> <span>*</span> 상품이미지 </p>
+                    <div>+ 추가</div>
+<!--                        required 추가 필요 -->
+                    <input type="file" name="picture" id="adminNewProductPicture" accept="image/*">
+                    <img src="/admin/img/이미지위치.png" alt="미리보기 이미지">
+                </label>
+
+
+                <label for="adminNewProductDesc" class="description">
+                    <p> <span>*</span> 상품 상세정보 </p>
+                    <input type="textbox" name="description" id="adminNewProductDesc" required>
+                </label>
+
+            </div>
+
+            <div class="buttons">
+                <button id="adminNewProductCancel">취소하기</button>
+                <button id="adminNewProductButton">등록하기</button>
+            </div>
+        </div>
+    </section>
+</th:block>
+</html>

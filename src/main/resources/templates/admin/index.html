@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout}">
+<th:block layout:fragment="content">
+    <section id="admin">
+        <div class="inner">
+            <div class="login">
+                <form action="/admin/login" method="post">
+                    <div class="login__title">
+                        <h1>프룻프룻 관리자센터 <br> 로그인</h1>
+                    </div>
+
+                    <div class="login__input">
+                        <label for="adminIndexId">
+                            <p>이메일주소(ID)</p>
+                            <input type="textbox" name="ADMIN_ID" placeholder="이메일 주소 입력" id="adminIndexId">
+                        </label>
+
+                        <div class="input__pw">
+                            <label for="adminIndexPwd">
+                                <p>비밀번호</p>
+                                <input type="textbox" name="ADMIN_PWD" placeholder="영문, 숫자, 특수문자 (8자-20자 이내)" id="adminIndexPwd">
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="login__button">
+                        <div class="login__button__inner">
+                            <button id="adminLoginButton">로그인</button>
+                        </div>
+                    </div>
+
+                    <!--<div class="login__txt">
+                        <div class="search__pw">
+                            <a href="./findPw.html">비밀번호 찾기</a>
+                        </div>
+
+                        &lt;!&ndash; 로그인 유지 토글 &ndash;&gt;
+                        <div class="stay__login">
+                            <label>
+                                <input role="switch" type="checkbox" />
+                                <span>로그인 유지</span>
+                            </label>
+                        </div>
+                    </div>-->
+                </form>
+            </div>
+        </div>
+    </section>
+</th:block>
+</html>
