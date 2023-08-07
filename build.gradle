@@ -36,6 +36,8 @@ dependencies {
     implementation group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.4.5'
     implementation 'com.google.firebase:firebase-admin:9.1.1'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+    implementation 'org.json:json:20230618'
+    implementation 'org.jsoup:jsoup:1.15.3'
 }
 
 tasks.named('test') {

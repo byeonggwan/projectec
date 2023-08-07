@@ -15,9 +15,7 @@ import java.io.InputStream;
 @Service
 @Slf4j
 public class FireBaseService {
-
-    @Value("${firebase.bucket}")
-    private String firebaseBucket;
+    private final static String firebaseBucket = "projectec-c95d6.appspot.com";
 
     public String uploadFiles(MultipartFile file, String path, String fileName) throws IOException {
 
@@ -39,4 +37,22 @@ public class FireBaseService {
         return blob.getMediaLink();
     }
 
+    public String uploadBytes(byte[] bytes, String path, String fileName) throws IOException {
+        if (bytes == null || bytes.length == 0) {
+            log.error("Byte array is empty");
+            return "Byte array is empty";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        if (!path.equals("")) {
+            sb.append(path + "/");
+        }
+        sb.append(fileName);
+
+        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
+        InputStream content = new ByteArrayInputStream(bytes);
+        Blob blob = bucket.create(sb.toString(), content, "image/jpeg");
+
+        return blob.getMediaLink();
+    }
 }

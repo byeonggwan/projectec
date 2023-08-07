@@ -46,22 +46,22 @@
                 <label for="adminNewProductStock">
                     <p> <span>*</span> 재고수량 </p>
                     <input type="textbox" name="stock" placeholder="0" id="adminNewProductStock" required>
-                    원
+                    개
                 </label>
 
                 <label for="adminNewProductPicture" class="productPicture">
                     <p> <span>*</span> 상품이미지 </p>
                     <div>+ 추가</div>
-<!--                        required 추가 필요 -->
-                    <input type="file" name="picture" id="adminNewProductPicture" accept="image/*">
+                    <input type="file" name="picture" id="adminNewProductPicture" accept="image/*" required>
                     <img src="/admin/img/이미지위치.png" alt="미리보기 이미지">
                 </label>
 
 
                 <label for="adminNewProductDesc" class="description">
                     <p> <span>*</span> 상품 상세정보 </p>
-                    <input type="textbox" name="description" id="adminNewProductDesc" required>
+                    <textarea name="description" id="adminNewProductDesc" required></textarea>
                 </label>
+                <button type="button" id="testBtn"> 테스트 </button>
 
             </div>
 

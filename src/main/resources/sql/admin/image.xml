@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecommerce.projectec.image.ImageMapper">
+    <insert id="insertAll" parameterType="java.util.List">
+        INSERT INTO IMAGE(PRODUCT_ID, IMAGE_URL, IMAGE_PATH, IMAGE_FILENAME,
+                            IMAGE_SIZE, IMAGE_DESC, IMAGE_TYPE) VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.PRODUCT_ID}, #{map.IMAGE_URL}, #{map.IMAGE_PATH}, #{map.IMAGE_FILENAME},
+            #{map.IMAGE_SIZE}, #{map.IMAGE_DESC}, #{map.IMAGE_TYPE})
+        </foreach>
+
+
+    </insert>
+    <select id="selectById" resultType="HashMap" parameterType="Int">
+    </select>
+
+</mapper>

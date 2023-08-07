@@ -5,7 +5,7 @@
 
 
 <mapper namespace="com.ecommerce.projectec.product.ProductMapper">
-    <insert id="insert" parameterType="HashMap">
+    <insert id="insert" parameterType="HashMap" useGeneratedKeys="true" keyProperty="PRODUCT_ID">
         INSERT INTO PRODUCT(CATEGORY_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STOCK, PRODUCT_DESC, PRODUCT_DISCOUNT)
         SELECT CATEGORY_ID, #{PRODUCT_NAME}, #{PRODUCT_PRICE}, #{PRODUCT_STOCK}, #{PRODUCT_DESC}, #{PRODUCT_DISCOUNT}
         FROM CATEGORY
