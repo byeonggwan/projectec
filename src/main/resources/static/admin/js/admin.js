@@ -48,3 +48,45 @@ $(document).on("click", "#testBtn", () => {
 
 
 });
+
+$(document).on("click", ".product-status-button", function() {
+    const status = $(this).val();
+
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+
+    params.set("status", status);
+
+    url.search = params.toString();
+
+    window.location.href = url;
+});
+
+$(document).on("click", ".product-category-button", function() {
+    const categoryId = $(this).val();
+
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+
+    params.set("categoryId", categoryId);
+
+    url.search = params.toString();
+
+    window.location.href = url;
+});
+
+$(document).on("click", ".product-cancel-button", function (){
+    const productId = $(this).val();
+    console.log(productId);
+    axios({
+        method: "post",
+        url: "/admin/cancel-product",
+        data: {productId},
+        dataType: "String",
+        headers: {"Content-Type": "application/json"}
+    }).then(res => {
+        window.location.replace(res.data);
+    }).catch(error => {
+        console.error(error);
+    });
+});

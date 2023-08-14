@@ -13,5 +13,31 @@
     </insert>
     <select id="selectById" resultType="HashMap" parameterType="Int">
     </select>
+    <!--category와 status를 받아서 동적쿼리로 결과를 반환. 보안상 약점있는지 확인 필요-->
+    <select id="selectByCatAndStat" resultType="HashMap">
+        SELECT *
+        FROM PRODUCT P
+            JOIN CATEGORY C
+            ON P.CATEGORY_ID = C.CATEGORY_ID
+        <where>
+            <if test="CATEGORY_ID != null">
+                AND P.CATEGORY_ID = #{CATEGORY_ID}
+            </if>
+            <if test="STATUS != null">
+                AND P.PRODUCT_STATUS = #{STATUS}
+            </if>
+        </where>
+        ORDER BY PRODUCT_CREATED_AT DESC
+    </select>
+    <select id="selectCategory" resultType="HashMap">
+        SELECT *
+        FROM CATEGORY
+        ORDER BY CATEGORY_ID ASC
+    </select>
 
+    <update id="updateStatById" parameterType="HashMap">
+        UPDATE PRODUCT
+        SET PRODUCT_STATUS=#{PRODUCT_STATUS}
+        WHERE PRODUCT_ID = #{PRODUCT_ID}
+    </update>
 </mapper>

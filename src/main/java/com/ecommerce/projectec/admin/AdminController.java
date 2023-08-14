@@ -5,12 +5,15 @@ import com.ecommerce.projectec.image.ImageService;
 import com.ecommerce.projectec.lib.StringConverter;
 import com.ecommerce.projectec.product.ProductDTO;
 import com.ecommerce.projectec.product.ProductService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +30,7 @@ public class AdminController {
     private final FireBaseService fireBaseService;
     private final ImageService imageService;
     private final StringConverter stringConverter;
+    private static final int pageSize = 5;
 
     @GetMapping("")
     public String adminIndex() { return "admin/index";}
@@ -38,7 +42,20 @@ public class AdminController {
     }
 
     @GetMapping("product")
-    public String adminProduct() {
+    public String adminProduct(@RequestParam(required = false) String categoryId,
+                               @RequestParam(required = false) String status,
+                               @RequestParam(required = false, defaultValue = "1") Integer page,
+                               Model model) {
+        Page<HashMap<String, Object>> productPage = productService.selectPage(
+                stringConverter.convertStrToInt(categoryId),
+                stringConverter.convertStrToInt(status),
+                page,
+                pageSize);
+
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("status", status);
+        model.addAttribute("categories", productService.selectCategory());
         return "admin/product";
     }
 
@@ -143,8 +160,14 @@ public class AdminController {
 
         imageService.insertAll(images);
 
-        return "product";
+        return "/admin/product";
     }
 
-
+    @ResponseBody
+    @PostMapping("cancel-product")
+    public String adminCancelProduct(@RequestBody HashMap<String, Object> requestData) {
+        Integer productId = stringConverter.convertStrToInt(String.valueOf(requestData.get("productId")));
+        productService.updateStatById(productId, 0);
+        return "/admin/product";
+    }
 }

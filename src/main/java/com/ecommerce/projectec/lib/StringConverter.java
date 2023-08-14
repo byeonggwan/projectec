@@ -34,4 +34,16 @@ public class StringConverter {
         // base64 디코딩하여 이미지 데이터 바이트 배열로 변환
         return Base64.getDecoder().decode(base64Image);
     }
+
+    public Integer convertStrToInt(String value) {
+        if ("null".equalsIgnoreCase(value)) {
+            return null;
+        }
+
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 }
