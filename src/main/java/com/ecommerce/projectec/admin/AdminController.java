@@ -82,6 +82,7 @@ public class AdminController {
     public String adminAddProduct(@ModelAttribute ProductDTO productDTO) {
         List<MultipartFile> imageFiles = new ArrayList<>();
         imageFiles.add(productDTO.getThumbnail());
+        String thumbnailName = stringConverter.getRandomString();
         String imagePath = "images";
         String url = null;
         String[] productKeys = {"CATEGORY_NAME", "PRODUCT_NAME", "PRODUCT_PRICE", "PRODUCT_STOCK",
@@ -89,6 +90,7 @@ public class AdminController {
         String[] imageKeys = {"PRODUCT_ID", "IMAGE_URL", "IMAGE_PATH", "IMAGE_FILENAME",
                 "IMAGE_SIZE", "IMAGE_DESC", "IMAGE_TYPE"};
         List<String> convertedUrls = new ArrayList<>();
+        List<String> convertedNames = new ArrayList<>();
 
         Document doc = Jsoup.parse(productDTO.getProduct_desc());
         // 모든 img 태그 선택
@@ -98,9 +100,11 @@ public class AdminController {
             String originalSrc = img.attr("src");
             try {
                 byte[] imageBytes = stringConverter.convertDataUrlToBytes(originalSrc);
-                String firebaseImageUrl = fireBaseService.uploadBytes(imageBytes, imagePath, "temp.jpg");
+                String randomName = stringConverter.getRandomString();
+                String firebaseImageUrl = fireBaseService.uploadBytes(imageBytes, imagePath, randomName);
                 img.attr("src", firebaseImageUrl);
                 convertedUrls.add(firebaseImageUrl);
+                convertedNames.add(randomName);
             }
             catch(Exception e) {
                 System.out.println(e);
@@ -123,7 +127,7 @@ public class AdminController {
         for (MultipartFile imageFile : imageFiles) {
             try {
                 // firebase에 저장 후 firebase file url을 반환함
-                url = fireBaseService.uploadFiles(imageFile, imagePath, imageFile.getOriginalFilename());
+                url = fireBaseService.uploadFiles(imageFile, imagePath, thumbnailName);
             }
             catch (Exception e) {
                 System.out.println(e);
@@ -133,7 +137,7 @@ public class AdminController {
                     product.get("PRODUCT_ID"),
                     url,
                     imagePath,
-                    imageFile.getOriginalFilename(),
+                    thumbnailName,
                     imageFile.getSize(),
                     "임시설명",
                     imageFile.getContentType()
@@ -143,12 +147,12 @@ public class AdminController {
             System.out.println(image);
         }
 
-        for (String convertedUrl: convertedUrls) {
+        for (int i=0; i<convertedUrls.size(); i++) {
             Object[] imageValues = {
                     product.get("PRODUCT_ID"),
-                    convertedUrl,
+                    convertedUrls.get(i),
                     imagePath,
-                    "임시이름",
+                    convertedNames.get(i),
                     12345,
                     "임시설명",
                     "image/jpeg"

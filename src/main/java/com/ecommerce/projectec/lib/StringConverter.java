@@ -6,8 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 @Service
 public class StringConverter {
@@ -45,5 +48,12 @@ public class StringConverter {
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    public String getRandomString() {
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+        int randomInt = new Random().nextInt(1000000);
+        String randomString = timestamp + "_" + randomInt;
+        return randomString;
     }
 }
