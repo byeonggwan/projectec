@@ -69,6 +69,7 @@ $(document).on("click", ".product-category-button", function() {
     const params = new URLSearchParams(url.search);
 
     params.set("categoryId", categoryId);
+    params.set("page", "1");
 
     url.search = params.toString();
 

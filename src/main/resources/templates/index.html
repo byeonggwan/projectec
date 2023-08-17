@@ -50,13 +50,15 @@
             <span class="material-icons">search </span>
 
             <!-- 필터 -->
-            <div class="buttons">
-                <button>봄과일</button>
-                <button>여름과일</button>
-                <button>가을과일</button>
-                <button>겨울과일</button>
-                <button>열대과일</button>
-                <button>하우스과일</button>
+            <div class="buttons" >
+                <button th:each="category, loop : ${categories}"
+                        type="button"
+                        class="product-category-button"
+                        name="categoryId"
+                        th:value="${category['CATEGORY_ID']}"
+                        th:text="${category['CATEGORY_NAME']}"
+                        th:classappend="${#strings.toString(category['CATEGORY_ID']) == categoryId ? 'active' : ''}">
+                </button>
             </div>
 
         </div>
@@ -68,9 +70,14 @@
 
                 <!-- 마이페이지 -->
                 <li>
-                    <a href="#">
+                    <a href="#" th:unless="${session.USER_NAME == null}">
                         <span class="material-symbols-outlined">person</span>
-                        <p>홍길동님</p>
+                        <p th:text="${session.USER_NAME}"></p>
+
+                    </a>
+                    <a href="/user/signin" th:if="${session.USER_NAME == null}">
+                        <span class="material-symbols-outlined">person</span>
+                        <p> 로그인 </p>
                     </a>
 
                     <div class="line"></div>
@@ -120,13 +127,12 @@
 
             <!-- 상품 리스트 -->
             <ul>
-                <!-- 오렌지 -->
-                <li>
+                <li th:each="product, loop : ${productPage}">
                     <!-- 클릭 시 상세페이지 이동 -->
-                    <a href="detail">
+                    <a th:href="@{/product/{id}(id=${product['PRODUCT_ID']})}">
 
                         <!-- 상품 사진 -->
-                        <img src="user/img/오렌지사진.jpg" alt="오렌지사진">
+                        <img th:src="${product['IMAGE_URL']}" alt="Product Image">
 
                         <div class="icons">
                             <!-- 좋아요 기능 눌렀을때 빨간 하트 아이콘-->
@@ -142,20 +148,20 @@
                         <div class="txt">
                             <!-- 상품명 -->
                             <div class="title">
-                                <span>오렌지</span>
+                                <span th:text="${product['PRODUCT_NAME']}"></span>
                             </div>
 
                             <!-- 상품 가격 -->
                             <div class="price">
-                                3,000원
+                                <span th:text="|${#numbers.formatInteger(product['PRODUCT_PRICE'], 3, 'COMMA')}원|"></span>
                             </div>
                         </div>
                     </a>
                 </li>
+<!--
 
-
-                <!-- 장바구니 클릭 시 수량 증감버튼 -->
-                <!-- 망고스틴 -->
+                &lt;!&ndash; 장바구니 클릭 시 수량 증감버튼 &ndash;&gt;
+                &lt;!&ndash; 망고스틴 &ndash;&gt;
                 <li class="cart__click">
                     <a href="detail">
                         <img src="user/img/상세페이지_망고스틴.png" alt="망고스틴사진">
@@ -163,19 +169,19 @@
 
 
                     <div class="icons">
-                        <!-- 좋아요 기능 기본 하트 아이콘-->
+                        &lt;!&ndash; 좋아요 기능 기본 하트 아이콘&ndash;&gt;
                         <a href="#">
                             <span class="material-symbols-outlined">favorite</span>
                         </a>
 
 
-                        <!-- 장바구니 카트 아이콘 -->
+                        &lt;!&ndash; 장바구니 카트 아이콘 &ndash;&gt;
                         <a href="">
                             <span class="material-symbols-outlined">shopping_cart</span>
                         </a>
                     </div>
 
-                    <!-- 장바구니 클릭 시 수량 증감버튼 -->
+                    &lt;!&ndash; 장바구니 클릭 시 수량 증감버튼 &ndash;&gt;
                     <div class="cart">
                         <div class="inner">
                             <button>+</button>
@@ -196,7 +202,7 @@
 
                 </li>
 
-                <!-- 복숭아 -->
+                &lt;!&ndash; 복숭아 &ndash;&gt;
                 <li>
                     <a href="#">
                         <img src="user/img/복숭아사진.jpeg" alt="복숭아사진">
@@ -217,7 +223,7 @@
                     </a>
                 </li>
 
-                <!-- 석류 -->
+                &lt;!&ndash; 석류 &ndash;&gt;
                 <li>
                     <a href="#">
                         <img src="user/img/석류사진.jpg" alt="석류사진">
@@ -238,7 +244,7 @@
                     </a>
                 </li>
 
-                <!-- 수박 -->
+                &lt;!&ndash; 수박 &ndash;&gt;
                 <li>
                     <a href="#">
                         <img src="user/img/수박사진.jpg" alt="수박사진">
@@ -259,7 +265,7 @@
                     </a>
                 </li>
 
-                <!-- 자두 -->
+                &lt;!&ndash; 자두 &ndash;&gt;
                 <li>
                     <a href="#">
                         <img src="user/img/자두사진.png" alt="자두사진">
@@ -280,7 +286,7 @@
                     </a>
                 </li>
 
-                <!-- 컵과일 -->
+                &lt;!&ndash; 컵과일 &ndash;&gt;
                 <li>
                     <a href="#">
                         <img src="user/img/컵과일사진.png" alt="컵과일사진">
@@ -301,7 +307,7 @@
                     </a>
                 </li>
 
-                <!-- 키위 -->
+                &lt;!&ndash; 키위 &ndash;&gt;
                 <li>
                     <a href="#">
                         <img src="user/img/키위사진.jpg" alt="키위사진">
@@ -322,7 +328,7 @@
                     </a>
                 </li>
 
-                <!-- 배 -->
+                &lt;!&ndash; 배 &ndash;&gt;
                 <li>
                     <a href="#">
                         <img src="user/img/배사진.png" alt="배사진">
@@ -341,32 +347,29 @@
                             </div>
                         </div>
                     </a>
-                </li>
+                </li>-->
             </ul>
 
         </div>
 
         <div class="pagination">
-            <a href="#" class="prev">
-                <span class="material-symbols-outlined">
-                    chevron_left
-                </span>
+            <a href="#" class="prev" th:href="@{|?page=${productPage.pageNum-productPage.pageSize}&categoryId=${categoryId}|}">
+                    <span class="material-symbols-outlined">
+                        chevron_left
+                    </span>
             </a>
 
-            <p class="numbers">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">
-                    <span class="bold">4</span>
+            <p class="numbers" th:each="page: ${#numbers.sequence(1, productPage.pages)}">
+                <a th:href="@{|?page=${page}&categoryId=${categoryId}|}"
+                   th:text="${page}"
+                   th:style="${page == productPage.pageNum} ? 'font-weight: bold;' : ''">
                 </a>
-                <a href="#">5</a>
             </p>
 
-            <a href="#" class="next">
-                <span class="material-symbols-outlined">
-                    chevron_right
-                </span>
+            <a href="#" class="next" th:href="@{|?page=${productPage.pageNum+productPage.pageSize}&categoryId=${categoryId}|}">
+                    <span class="material-symbols-outlined">
+                        chevron_right
+                    </span>
             </a>
         </div>
     </section>

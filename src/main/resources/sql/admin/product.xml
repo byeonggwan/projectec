@@ -5,14 +5,24 @@
 
 
 <mapper namespace="com.ecommerce.projectec.product.ProductMapper">
+    <!--상세 페이지에서 사용되는 Product DTO-->
+    <resultMap id="productDetailResultMap" type="com.ecommerce.projectec.product.ProductDetailDTO">
+        <result property="productId" column="PRODUCT_ID" />
+        <result property="productName" column="PRODUCT_NAME" />
+        <result property="productPrice" column="PRODUCT_PRICE" />
+        <result property="productStock" column="PRODUCT_STOCK" />
+        <result property="productDesc" column="PRODUCT_DESC" />
+        <result property="productDiscount" column="PRODUCT_DISCOUNT" />
+        <result property="productStatus" column="PRODUCT_STATUS" />
+        <result property="productImageUrl" column="IMAGE_URL" />
+    </resultMap>
+
     <insert id="insert" parameterType="HashMap" useGeneratedKeys="true" keyProperty="PRODUCT_ID">
         INSERT INTO PRODUCT(CATEGORY_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STOCK, PRODUCT_DESC, PRODUCT_DISCOUNT)
         SELECT CATEGORY_ID, #{PRODUCT_NAME}, #{PRODUCT_PRICE}, #{PRODUCT_STOCK}, #{PRODUCT_DESC}, #{PRODUCT_DISCOUNT}
         FROM CATEGORY
         WHERE CATEGORY_NAME = #{CATEGORY_NAME}
     </insert>
-    <select id="selectById" resultType="HashMap" parameterType="Int">
-    </select>
     <!--category와 status를 받아서 동적쿼리로 결과를 반환. 보안상 약점있는지 확인 필요-->
     <select id="selectByCatAndStat" resultType="HashMap">
         SELECT *
@@ -27,7 +37,7 @@
                 AND P.PRODUCT_STATUS = #{STATUS}
             </if>
         </where>
-        ORDER BY PRODUCT_CREATED_AT DESC
+        ORDER BY P.PRODUCT_ID DESC
     </select>
     <select id="selectCategory" resultType="HashMap">
         SELECT *
@@ -40,4 +50,51 @@
         SET PRODUCT_STATUS=#{PRODUCT_STATUS}
         WHERE PRODUCT_ID = #{PRODUCT_ID}
     </update>
+
+    <!--
+    INDEX 페이지에서 물건이 보이도록 하는 코드
+    이미지가 없거나, status가 1이 아닌 것들은 추출되지 않음
+    -->
+    <select id="selectByCatWithThumb" parameterType="HashMap">
+        SELECT P.PRODUCT_ID,
+               P.PRODUCT_NAME,
+               P.PRODUCT_PRICE,
+               P.PRODUCT_STOCK,
+               P.PRODUCT_DISCOUNT,
+               I.IMAGE_URL
+        FROM PRODUCT P
+        JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID
+        <where>
+            <if test="CATEGORY_ID != null">
+                P.CATEGORY_ID = #{CATEGORY_ID}
+            </if>
+        </where>
+        AND I.IMAGE_ID = (
+            SELECT MIN(IMAGE_ID)
+            FROM IMAGE
+            WHERE PRODUCT_ID = P.PRODUCT_ID
+            )
+        AND P.PRODUCT_STATUS = 1
+        ORDER BY P.PRODUCT_ID DESC
+    </select>
+
+    <!--detail product DTO-->
+    <select id="selectDtoById" resultMap="productDetailResultMap">
+        SELECT P.PRODUCT_ID,
+               P.PRODUCT_NAME,
+               P.PRODUCT_PRICE,
+               P.PRODUCT_STOCK,
+               P.PRODUCT_DESC,
+               P.PRODUCT_DISCOUNT,
+               P.PRODUCT_STATUS,
+               I.IMAGE_URL
+        FROM PRODUCT P
+                 JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID
+        WHERE P.PRODUCT_ID = #{PRODUCT_ID}
+        AND I.IMAGE_ID = (
+            SELECT MIN(IMAGE_ID)
+            FROM IMAGE
+            WHERE PRODUCT_ID = P.PRODUCT_ID
+        )
+    </select>
 </mapper>

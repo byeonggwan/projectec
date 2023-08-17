@@ -32,4 +32,15 @@ public class ProductService{
     public void updateStatById(Integer productId, Integer productStatus) {
         productMapper.updateStatById(productId, productStatus);
     }
+
+    public Page<HashMap<String, Object>> selectPageWithThumb(Integer categoryId,
+                                                             Integer page,
+                                                             Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        return productMapper.selectByCatWithThumb(categoryId);
+    }
+
+    public ProductDetailDTO selectDtoById(Integer productId) {
+        return productMapper.selectDtoById(productId);
+    }
 }

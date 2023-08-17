@@ -37,7 +37,7 @@
                         <a href="#" id="logout" th:unless="${session.USER_EMAIL == null}">Log Out</a>
                     </li>
                     <li>
-                        <a href="/user/join">Join</a>
+                        <a href="/user/join" th:if="${session.USER_EMAIL == null}">Join</a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">language</a>

@@ -2882,6 +2882,11 @@ header .inner .main-menu .item .red .material-icons {
   cursor: pointer;
 }
 
+#search .inner .buttons button.active {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
 #products {
   width: 1180px;
   margin: 0 auto;
@@ -3018,6 +3023,7 @@ header .inner .main-menu .item .red .material-icons {
   top: 0;
   right: 0;
   width: 120px;
+  z-index: 10;
 }
 #aside .sidebar ul {
   display: flex;

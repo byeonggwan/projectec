@@ -15,4 +15,7 @@ public interface ProductMapper {
     List<HashMap<String, Object>> selectCategory();
     void updateStatById(@Param("PRODUCT_ID") Integer productId,
                     @Param("PRODUCT_STATUS") Integer productStatus);
+
+    Page<HashMap<String, Object>> selectByCatWithThumb(@Param("CATEGORY_ID") Integer categoryId);
+    ProductDetailDTO selectDtoById(@Param("PRODUCT_ID") Integer productId);
 }
