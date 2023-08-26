@@ -15,7 +15,13 @@
 
                     <div class="right__txt01">
                         <h2 th:text="${product.getProductName()}">  </h2>
-                        <span class="material-icons red__heart">favorite</span>
+                        <a href="javascript:void(0);" class="like-button" th:data-product-id="${product.getProductId()}">
+                            <span
+                                  th:classappend="${product.getProductLiked()==1} ?
+                                  'material-icons red__heart' : 'material-symbols-outlined'">
+                                favorite
+                            </span>
+                        </a>
                     </div>
 
                     <div class="right__txt02">
@@ -42,7 +48,7 @@
                                 <input type="text" value="2">
                                 <button>+</button>
                             </div>
-                            <span th:text="|남은수량 ${product.getProductStock()}개|">남은수량 999개</span>
+                            <span th:text="|남은수량 ${product.getProductStock()}개|"></span>
                         </div>
 
                         <div class="right__txt03__01">

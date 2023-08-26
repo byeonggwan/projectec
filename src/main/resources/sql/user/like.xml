@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecommerce.projectec.like.LikeMapper">
+    <insert id="insertById">
+        INSERT INTO `LIKE`(USER_ID_NO, PRODUCT_ID) VALUES (#{USER_ID_NO}, #{PRODUCT_ID})
+    </insert>
+    <delete id="deleteById">
+        DELETE FROM `LIKE` WHERE USER_ID_NO = #{USER_ID_NO} AND PRODUCT_ID = #{PRODUCT_ID}
+    </delete>
+    <select id="selectCountById" resultType="Integer">
+        SELECT COUNT(*) AS LIKESNUMBER FROM `LIKE` WHERE USER_ID_NO = #{USER_ID_NO}
+    </select>
+</mapper>

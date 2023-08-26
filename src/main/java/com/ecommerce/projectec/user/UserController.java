@@ -113,6 +113,7 @@ public class UserController {
 
         httpSession.setAttribute("USER_EMAIL" , user.get("USER_EMAIL"));
         httpSession.setAttribute("USER_NAME", user.get("USER_NAME"));
+        httpSession.setAttribute("USER_ID_NO", user.get("USER_ID_NO"));
         return "redirect:/";
     }
 

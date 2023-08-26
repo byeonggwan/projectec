@@ -47,7 +47,7 @@ public class AdminController {
                                @RequestParam(required = false, defaultValue = "1") Integer page,
                                Model model) {
         Page<HashMap<String, Object>> productPage = productService.selectPage(
-                stringConverter.convertStrToInt(categoryId),
+                stringConverter.convertStrToLong(categoryId),
                 stringConverter.convertStrToInt(status),
                 page,
                 pageSize);
@@ -170,7 +170,7 @@ public class AdminController {
     @ResponseBody
     @PostMapping("cancel-product")
     public String adminCancelProduct(@RequestBody HashMap<String, Object> requestData) {
-        Integer productId = stringConverter.convertStrToInt(String.valueOf(requestData.get("productId")));
+        Long productId = stringConverter.convertStrToLong(String.valueOf(requestData.get("productId")));
         productService.updateStatById(productId, 0);
         return "/admin/product";
     }

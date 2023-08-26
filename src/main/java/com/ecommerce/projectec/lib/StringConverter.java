@@ -50,6 +50,18 @@ public class StringConverter {
         }
     }
 
+    public Long convertStrToLong(String value) {
+        if ("null".equalsIgnoreCase(value)) {
+            return null;
+        }
+
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     public String getRandomString() {
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
         int randomInt = new Random().nextInt(1000000);

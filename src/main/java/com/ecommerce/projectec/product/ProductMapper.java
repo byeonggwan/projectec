@@ -10,12 +10,14 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
     void insert(HashMap<String, Object> product);
-    Page<HashMap<String, Object>> selectByCatAndStat(@Param("CATEGORY_ID") Integer categoryId,
+    Page<HashMap<String, Object>> selectByCatAndStat(@Param("CATEGORY_ID") Long categoryId,
                                                      @Param("STATUS") Integer status);
     List<HashMap<String, Object>> selectCategory();
-    void updateStatById(@Param("PRODUCT_ID") Integer productId,
+    void updateStatById(@Param("PRODUCT_ID") Long productId,
                     @Param("PRODUCT_STATUS") Integer productStatus);
 
-    Page<HashMap<String, Object>> selectByCatWithThumb(@Param("CATEGORY_ID") Integer categoryId);
-    ProductDetailDTO selectDtoById(@Param("PRODUCT_ID") Integer productId);
+    Page<HashMap<String, Object>> selectByCatWithThumb(@Param("CATEGORY_ID") Long categoryId,
+                                                       @Param("USER_ID_NO") Long userIdNo);
+    ProductDetailDTO selectDtoById(@Param("PRODUCT_ID") Long productId,
+                                   @Param("USER_ID_NO") Long userIdNo);
 }

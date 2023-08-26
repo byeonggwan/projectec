@@ -99,7 +99,9 @@
                     <a href="#">
                         <span class="material-icons">favorite</span>
                         <p>찜</p>
-                        <div class="favorite__count">3</div>
+                        <div class="favorite__count" th:text="${likeSize}">
+
+                        </div>
                     </a>
 
                     <div class="line"></div>
@@ -124,7 +126,6 @@
     <section id="products">
 
         <div class="inner">
-
             <!-- 상품 리스트 -->
             <ul>
                 <li th:each="product, loop : ${productPage}">
@@ -136,8 +137,15 @@
 
                         <div class="icons">
                             <!-- 좋아요 기능 눌렀을때 빨간 하트 아이콘-->
-                            <!-- (기본 하트 아이콘은 두번 째 li (과일세트)에 있어요) -->
-                            <span class="material-icons red__heart">favorite</span>
+                            <a href="javascript:void(0);"
+                               class="like-button"
+                               th:data-product-id="${product['PRODUCT_ID']}">
+                                <span
+                                        th:classappend="${product['LIKED']==1} ?
+                                      'material-icons red__heart' : 'material-symbols-outlined'">
+                                    favorite
+                                </span>
+                            </a>
 
                             <!-- 장바구니 카트 아이콘 -->
                             <span class="material-symbols-outlined">shopping_cart</span>

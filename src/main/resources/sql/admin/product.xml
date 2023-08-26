@@ -15,6 +15,7 @@
         <result property="productDiscount" column="PRODUCT_DISCOUNT" />
         <result property="productStatus" column="PRODUCT_STATUS" />
         <result property="productImageUrl" column="IMAGE_URL" />
+        <result property="productLiked" column="LIKED" />
     </resultMap>
 
     <insert id="insert" parameterType="HashMap" useGeneratedKeys="true" keyProperty="PRODUCT_ID">
@@ -61,19 +62,21 @@
                P.PRODUCT_PRICE,
                P.PRODUCT_STOCK,
                P.PRODUCT_DISCOUNT,
-               I.IMAGE_URL
+               I.IMAGE_URL,
+               CASE WHEN L.USER_ID_NO IS NOT NULL THEN 1 ELSE 0 END AS LIKED
         FROM PRODUCT P
-        JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID
+            JOIN (
+                SELECT PRODUCT_ID, MIN(IMAGE_ID) AS MIN_IMAGE_ID
+                FROM IMAGE
+                GROUP BY PRODUCT_ID
+            ) I2 ON P.PRODUCT_ID = I2.PRODUCT_ID
+            JOIN IMAGE I ON I.IMAGE_ID = I2.MIN_IMAGE_ID
+            LEFT JOIN `LIKE` L ON P.PRODUCT_ID = L.PRODUCT_ID AND L.USER_ID_NO = #{USER_ID_NO}
         <where>
             <if test="CATEGORY_ID != null">
                 P.CATEGORY_ID = #{CATEGORY_ID}
             </if>
         </where>
-        AND I.IMAGE_ID = (
-            SELECT MIN(IMAGE_ID)
-            FROM IMAGE
-            WHERE PRODUCT_ID = P.PRODUCT_ID
-            )
         AND P.PRODUCT_STATUS = 1
         ORDER BY P.PRODUCT_ID DESC
     </select>
@@ -87,10 +90,13 @@
                P.PRODUCT_DESC,
                P.PRODUCT_DISCOUNT,
                P.PRODUCT_STATUS,
-               I.IMAGE_URL
+               I.IMAGE_URL,
+               CASE WHEN L.USER_ID_NO IS NOT NULL THEN 1 ELSE 0 END AS LIKED
         FROM PRODUCT P
-                 JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID
+            JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID
+            LEFT JOIN `LIKE` L ON P.PRODUCT_ID = L.PRODUCT_ID AND L.USER_ID_NO = #{USER_ID_NO}
         WHERE P.PRODUCT_ID = #{PRODUCT_ID}
+
         AND I.IMAGE_ID = (
             SELECT MIN(IMAGE_ID)
             FROM IMAGE

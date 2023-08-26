@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class ProductDetailDTO {
-    private Integer productId;
+    private Long productId;
     private String productName;
     private Integer productPrice;
     private Integer productStock;
@@ -16,4 +16,5 @@ public class ProductDetailDTO {
     private Integer productDiscount;
     private Integer productStatus;
     private String productImageUrl;
+    private Integer productLiked;
 }
