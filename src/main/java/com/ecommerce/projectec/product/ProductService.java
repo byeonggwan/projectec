@@ -5,8 +5,10 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -48,5 +50,11 @@ public class ProductService{
         if (userIdNo == null)
             userIdNo = 0L;
         return productMapper.selectDtoById(productId, userIdNo);
+    }
+
+    public List<HashMap<String, Object>> selectByIds(Set<Long> productIds) {
+        if (productIds == null || productIds.isEmpty())
+            return new ArrayList<>();;
+        return productMapper.selectByIds(productIds);
     }
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Mapper
 public interface ProductMapper {
@@ -20,4 +21,6 @@ public interface ProductMapper {
                                                        @Param("USER_ID_NO") Long userIdNo);
     ProductDetailDTO selectDtoById(@Param("PRODUCT_ID") Long productId,
                                    @Param("USER_ID_NO") Long userIdNo);
+
+    List<HashMap<String, Object>> selectByIds(@Param("PRODUCT_IDS") Set<Long> productIds);
 }

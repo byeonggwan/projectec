@@ -2,7 +2,19 @@
 <html lang="ko"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
+
 <th:block layout:fragment="content">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem("cart")) || {};
+                const cartCount = Object.keys(cart).length;
+                document.getElementById("cartCount").textContent = cartCount;
+            }
+
+            updateCartCount();
+        });
+    </script>
     <section id="visual">
         <div class="promotion">
             <div class="swiper">
@@ -87,10 +99,10 @@
 
                 <!-- 장바구니 -->
                 <li class="right__cart">
-                    <a href="#">
+                    <a href="javascript:void(0);" class="cartLink">
                         <span class="material-symbols-outlined">shopping_cart</span>
                         <p>장바구니</p>
-                        <div class="cart__count">5</div>
+                        <div class="cart__count" id="cartCount">0</div>
                     </a>
                 </li>
 

@@ -137,3 +137,22 @@ $(document).on("click", "#signup-button", () => {
     });
 
 });
+
+$(document).on("click", ".cartLink", function () {
+    linkToCart();
+});
+
+function linkToCart() {
+    const cartData = JSON.parse(localStorage.getItem("cart")) || {};
+    console.log(cartData);
+    axios({
+        method: "post",
+        url: "/user/cart",
+        data: cartData,
+        headers: {"Content-Type": "application/json"}
+    }).then(res => {
+        document.open();
+        document.write(res.data);
+        document.close();
+    });
+}

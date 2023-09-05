@@ -103,4 +103,25 @@
             WHERE PRODUCT_ID = P.PRODUCT_ID
         )
     </select>
+
+    <select id="selectByIds" resultType="HashMap">
+        SELECT P.PRODUCT_ID,
+               P.PRODUCT_NAME,
+               P.PRODUCT_PRICE,
+               P.PRODUCT_STOCK,
+               P.PRODUCT_DISCOUNT,
+               I.IMAGE_URL
+        FROM PRODUCT P
+            JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID
+        WHERE P.PRODUCT_ID IN
+        <foreach collection="PRODUCT_IDS" item="productId" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+        AND I.IMAGE_ID = (
+            SELECT MIN(IMAGE_ID)
+            FROM IMAGE
+            WHERE PRODUCT_ID = P.PRODUCT_ID
+        )
+    </select>
+
 </mapper>

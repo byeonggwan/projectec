@@ -1,6 +1,7 @@
 package com.ecommerce.projectec.user;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.ecommerce.projectec.product.ProductService;
 import com.ecommerce.projectec.term.TermService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
 public class UserController {
     private final UserService userService;
     private final TermService termService;
+    private final ProductService productService;
     private static final Pattern emailPattern
             = Pattern.compile("^(?=.{1,254}@)[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9.-]{1,190}\\.[A-Za-z]{2,}$");
     private static final Pattern pwdPattern
@@ -92,6 +94,21 @@ public class UserController {
     @GetMapping("findPw")
     public String findPw() {
         return "user/findPw";
+    }
+
+    @PostMapping("cart")
+    public String cart(@RequestBody HashMap<Long, Object> cartData,
+                       Model model) {
+        List<HashMap<String, Object>> products = productService.selectByIds(cartData.keySet());
+
+        for (HashMap<String, Object> product : products) {
+            Long productId = (Long) product.get("PRODUCT_ID");
+            Integer productSize = (Integer) cartData.get(productId);
+
+            product.put("PRODUCT_SIZE", productSize);
+        }
+        model.addAttribute("products", products);
+        return "user/cart";
     }
 
     @PostMapping("login")

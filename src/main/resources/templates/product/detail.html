@@ -44,9 +44,15 @@
                         <!-- 장바구니 클릭 시 수량 증감버튼 -->
                         <div class="cart">
                             <div class="inner">
-                                <button>-</button>
-                                <input type="text" value="2">
-                                <button>+</button>
+                                <button id="detailSizeMinusButton">-</button>
+                                <input
+                                        type="text"
+                                        value=1
+                                        id="detailProductSize">
+                                <button id="detailSizePlusButton"
+                                        th:data-product-stock="${product.getProductStock()}">
+                                    +
+                                </button>
                             </div>
                             <span th:text="|남은수량 ${product.getProductStock()}개|"></span>
                         </div>
@@ -64,7 +70,10 @@
                     </div>
 
                     <div class="right__buttons">
-                        <button>장바구니</button>
+                        <button id="detailAddToCartButton"
+                                th:data-product-id="${product.getProductId()}">
+                            장바구니
+                        </button>
                         <button>바로구매</button>
                     </div>
 
@@ -78,11 +87,11 @@
                                 <span>장바구니에 담겼습니다.</span>
 
                                 <div class="buttons">
-                                    <a href="./detail.html">
+                                    <a id="detailReturnLink">
                                         <button>계속 쇼핑하기</button>
                                     </a>
 
-                                    <a href="#">
+                                    <a class="cartLink">
                                         <button>장바구니로 이동</button>
                                     </a>
                                 </div>
